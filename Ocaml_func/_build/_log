@@ -1,0 +1,20 @@
+### Starting build.
+# Target: gen_scenario.ml.depends, tags: { extension:ml, file:gen_scenario.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules gen_scenario.ml > gen_scenario.ml.depends
+# Target: acft.ml.depends, tags: { extension:ml, file:acft.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules acft.ml > acft.ml.depends # cached
+# Target: funcnico.ml.depends, tags: { extension:ml, file:funcnico.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules funcnico.ml > funcnico.ml.depends # cached
+# Target: funcnico.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:funcnico.cmo, file:funcnico.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o funcnico.cmo funcnico.ml # cached
+# Target: xy.ml.depends, tags: { extension:ml, file:xy.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules xy.ml > xy.ml.depends # cached
+# Target: xy.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:xy.cmo, file:xy.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o xy.cmo xy.ml # cached
+# Target: acft.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:acft.cmo, file:acft.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o acft.cmo acft.ml # cached
+# Target: gen_scenario.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:gen_scenario.cmo, file:gen_scenario.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o gen_scenario.cmo gen_scenario.ml
+# Target: gen_scenario.byte, tags: { byte, dont_link_with, extension:byte, file:gen_scenario.byte, link, ocaml, program, quiet }
+/usr/bin/ocamlc.opt funcnico.cmo xy.cmo acft.cmo gen_scenario.cmo -o gen_scenario.byte
+# Compilation successful.
