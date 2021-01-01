@@ -1,0 +1,34 @@
+crossmut.cmo : types.cmi misc.cmi local.cmi crossmut.cmi
+crossmut.cmx : types.cmx misc.cmx local.cmx crossmut.cmi
+crossmut.cmi : types.cmi
+gvars.cmo : gvars.cmi
+gvars.cmx : gvars.cmi
+gvars.cmi :
+initpop.cmo : types.cmi local.cmi initpop.cmi
+initpop.cmx : types.cmx local.cmx initpop.cmi
+initpop.cmi : types.cmi
+local.cmo : ../xy.cmi gvars.cmi ../acft.cmi local.cmi
+local.cmx : ../xy.cmx gvars.cmx ../acft.cmx local.cmi
+local.cmi :
+main.cmo : types.cmi simplex.cmi share.cmi scale.cmi reproduce.cmi local.cmi \
+    initpop.cmi gvars.cmi crossmut.cmi
+main.cmx : types.cmx simplex.cmx share.cmx scale.cmx reproduce.cmx local.cmx \
+    initpop.cmx gvars.cmx crossmut.cmx
+misc.cmo : misc.cmi
+misc.cmx : misc.cmi
+misc.cmi :
+reproduce.cmo : types.cmi reproduce.cmi
+reproduce.cmx : types.cmx reproduce.cmi
+reproduce.cmi : types.cmi
+scale.cmo : types.cmi gvars.cmi scale.cmi
+scale.cmx : types.cmx gvars.cmx scale.cmi
+scale.cmi : types.cmi
+share.cmo : types.cmi local.cmi share.cmi
+share.cmx : types.cmx local.cmx share.cmi
+share.cmi : types.cmi
+simplex.cmo : misc.cmi local.cmi gvars.cmi simplex.cmi
+simplex.cmx : misc.cmx local.cmx gvars.cmx simplex.cmi
+simplex.cmi : local.cmi
+types.cmo : local.cmi types.cmi
+types.cmx : local.cmx types.cmi
+types.cmi : local.cmi
