@@ -205,7 +205,6 @@ let print_best data =
   Array.iteri (fun i man -> Acft.turn pb.pb_acft.(i) man.t0 man.h man.t1) data.d;
   Array.iteri (fun i _ -> Acft.set_man pb.incert pb.pb_acft.(i)) data.d;
   Array.iteri (fun i m ->
-    Printf.fprintf (open_out "Ilyass.txt") "TEST SUCCEEDED\n";
     Printf.printf "%.0f %.0f %.0f %.0f\n" 
       pb.t0min.(i) m.t0 (Xy.degrees *. m.h) m.t1;
     Printf.printf "%.f %.f %.f %f\n" m.t0 m.h m.t1 (evalData data);
