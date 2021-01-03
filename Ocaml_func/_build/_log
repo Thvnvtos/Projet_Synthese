@@ -1,6 +1,6 @@
 ### Starting build.
-# Target: check_confs.ml.depends, tags: { extension:ml, file:check_confs.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules check_confs.ml > check_confs.ml.depends
+# Target: check_confs_incert.ml.depends, tags: { extension:ml, file:check_confs_incert.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules check_confs_incert.ml > check_confs_incert.ml.depends
 # Target: acft.ml.depends, tags: { extension:ml, file:acft.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules acft.ml > acft.ml.depends # cached
 # Target: funcnico.ml.depends, tags: { extension:ml, file:funcnico.ml, ocaml, ocamldep, quiet }
@@ -13,8 +13,8 @@
 /usr/bin/ocamlc.opt -c -o xy.cmo xy.ml # cached
 # Target: acft.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:acft.cmo, file:acft.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o acft.cmo acft.ml # cached
-# Target: check_confs.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:check_confs.cmo, file:check_confs.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o check_confs.cmo check_confs.ml
-# Target: check_confs.byte, tags: { byte, dont_link_with, extension:byte, file:check_confs.byte, link, ocaml, program, quiet }
-/usr/bin/ocamlc.opt funcnico.cmo xy.cmo acft.cmo check_confs.cmo -o check_confs.byte
+# Target: check_confs_incert.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:check_confs_incert.cmo, file:check_confs_incert.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o check_confs_incert.cmo check_confs_incert.ml
+# Target: check_confs_incert.byte, tags: { byte, dont_link_with, extension:byte, file:check_confs_incert.byte, link, ocaml, program, quiet }
+/usr/bin/ocamlc.opt funcnico.cmo xy.cmo acft.cmo check_confs_incert.cmo -o check_confs_incert.byte
 # Compilation successful.
