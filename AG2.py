@@ -5,22 +5,18 @@ import os
 scenarios = sorted(os.listdir("solved_scenarios"))
 
 def gen_sol():
-	return [np.random.normal(0.1, 0.05), np.random.normal(30., 15.), np.random.normal(30., 15.), np.random.normal(5., 2.5)]
+	return [np.random.uniform(0.0, 2.0), 30., 30., np.random.uniform(0.0, 10.0)]
 
 def init_pop(n):
 	return [gen_sol() for i in range(n)]
 
 def fitness(sol):
-	flag = True
+	confs = 0
 	for sc in scenarios:
 		os.system("Ocaml_func/check_confs_incert.byte solved_scenarios/{} {} {} {} {} > temp.txt".format(sc, sol[0], sol[1], sol[2], sol[3]))
 		with open("temp.txt", 'r') as f:
-			if f.readlines() != []:
-				flag = False
-				break 
-	if not flag:
-		return 0
-	return 23 * sol[0] + 0.04 * sol[1] + 0 * sol[2] + 0.13 * sol[3]
+			confs += len(f.readlines())
+	return 110 * sol[0] + sol[3] - 1000 * confs
 
 
 def selection(pop, k):
@@ -35,10 +31,10 @@ def crossover_mutation(elite, n, proba_mut):
 	new_pop = []
 	for i in range(n):
 		if random.random() < proba_mut:
-			new_pop.append([np.random.normal(mean[0], 0.01), np.random.normal(mean[1], 0.5), np.random.normal(mean[2], 0.5), np.random.normal(mean[3], 0.2)])
+			new_pop.append([np.random.normal(mean[0], 0.01), mean[1], mean[2], np.random.normal(mean[3], 0.2)])
 		else:
 			new_pop.append([mean[0], mean[1], mean[2], mean[3]])
-	return new_pop
+	return new_pop, mean 
 
 
 
@@ -50,18 +46,18 @@ if __name__ == "__main__":
 	eps = 1e-6
 	fit = 0
 	prev_fit = -1
-	proba_mut = 0.25
+	proba_mut = 0.20
 
 	pop = init_pop(N)
 
 	os.system("rm logs.txt")
-	f = open("logs.txt", "w")
 
 	while itr < max_iter:
 		elite, best = selection(pop, N_elite)
-		pop = crossover_mutation(elite, N, proba_mut)
-		print("iteration {} : Best = {}".format(itr,best))
-		f.write("{} {} {} {}\n".format(best[0], best[1][0], best[1][1], best[1][3]))
+		pop, mean = crossover_mutation(elite, N, proba_mut)
+		score = fitness(mean)
+		print("iteration {} : Top 10% fitness = {}, mean incert  = {}".format(itr,score, mean))
+		with open("logs.txt", 'a') as f:
+			f.write("{} {} {} {} {}\n".format(score, mean[0], mean[1], mean[2], mean[3]))
 		itr += 1
-	f.close()
 	os.system("rm temp.txt")
