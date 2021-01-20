@@ -13,10 +13,10 @@ def init_pop(n):
 def fitness(sol):
 	confs = 0
 	for sc in scenarios:
-		os.system("Ocaml_func/check_confs_incert.byte solved_scenarios/{} {} {} {} {} > temp.txt".format(sc, sol[0], sol[1], sol[2], sol[3]))
+		os.system("Ocaml_func/_build/check_confs_incert.byte solved_scenarios/{} {} {} {} {} > temp.txt".format(sc, sol[0], sol[1], sol[2], sol[3]))
 		with open("temp.txt", 'r') as f:
 			confs += len(f.readlines())
-	return 350 * sol[0] + sol[3] - 1000 * confs
+	return 220 * sol[0] + sol[3] - 1000 * confs
 
 
 def selection(pop, k):
