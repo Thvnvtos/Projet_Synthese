@@ -6,10 +6,10 @@ Script de génération de scénarios de conflits
 import os
 
 # dictionnaire contenant le nombre de scénarios a générer pour chaque nombre d'avions
-n = {2 : 40, 3 : 40, 4 : 50, 5 : 60}
+n = {2 : 40, 3 : 50, 4 : 60, 5 : 70}
 
 # incertitudes : 
-delta = [0.05, 20., 20., 2.5]
+delta = [0.02, 20., 20., 5.]
 
 os.system("rm -rf scenarios/*")
 
