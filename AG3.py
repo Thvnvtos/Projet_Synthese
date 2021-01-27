@@ -60,7 +60,7 @@ def fitness(sol):
 	confs_3 = check_incert(sol_3)
 	confs_2 = check_incert(sol_2)
 
-	return confs_2 + conf_3 + confs_5
+	return confs_2 + confs_3 + confs_5
 
 
 def selection(pop, k):
@@ -92,7 +92,7 @@ def crossover_mutation(elite,pop, n, proba_mut, proba_big_mut):
 	pop = elite[:half] + new_gen + pop[2*half:]
 
 	print("====> Mutation Process : ")
-	for i in tqdm.tqdm(2*half,range(n)):
+	for i in tqdm.tqdm(range(2*half,n)):
 		if random.random() < proba_mut:
 			j = random.choice([0,1,3])
 			pop[i][j] -= pop[i][j]/2
