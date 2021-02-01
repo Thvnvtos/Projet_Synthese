@@ -2,6 +2,7 @@ import numpy as np
 import random
 import os
 import tqdm
+import matplotlib.pyplot as plt
 
 scenarios = sorted(os.listdir("solved_scenarios"))
 
@@ -36,8 +37,10 @@ def gen_sol():
 def init_pop(n):
 	print("++++++ Initializing the population ++++++")
 	pop = []
+	pop_prev = []
 	for i in tqdm.tqdm(range(n)):
 		sol = gen_sol()
+		pop_prev.append(sol.copy())
 		confs = check_incert(sol)
 		while confs:
 			sol = [sol[0] - sol[0]/5, sol[1] - sol[1]/5, sol[2], sol[3] - sol[3]/5]
@@ -45,6 +48,7 @@ def init_pop(n):
 		j = random.choice([0,1,3])
 		sol = binary_search(sol,j,eps=1e-3)
 		pop.append(sol)
+	make_plot(pop_prev, "pareto_front_0.1_5_.txt", 0)
 	return pop
 
 def fitness(sol):
@@ -89,13 +93,13 @@ def crossover_mutation(elite,pop, n, proba_mut, proba_big_mut):
 		sol = binary_search(sol,j,eps=1e-3)
 		new_gen.append(sol)
 
-	pop = elite[:half] + new_gen + pop[2*half:]
+	pop =  elite[:half] + new_gen #+ pop[half+len(elite):]
 
 	print("====> Mutation Process : ")
-	for i in tqdm.tqdm(range(2*half,n)):
+	for i in tqdm.tqdm(range(1,len(pop))):
 		if random.random() < proba_mut:
 			j = random.choice([0,1,3])
-			pop[i][j] -= pop[i][j]/2
+			pop[i][j] -= pop[i][j]/4
 			choices = [0,1,3]
 			choices.remove(j)
 			k = random.choice(choices)
@@ -104,11 +108,35 @@ def crossover_mutation(elite,pop, n, proba_mut, proba_big_mut):
 	return pop
 
 
+def make_plot(pop, front, itr):
+	x = float(front.split("_")[2])
+	y = float(front.split("_")[3])
+
+	with open(front, "r") as f:
+		s = f.readlines()
+
+	dv = [float(x.split(' ')[0]) for x in s]
+	dh = [float(x.split(' ')[1]) for x in s]
+	pop_x = [p[0] for p in pop]
+	pop_y = [p[3] for p in pop]
+
+	plt.figure(figsize=(10,10))
+	plt.xlim(0,x+x/3)
+	plt.ylim(0,y+y)
+	plt.scatter(pop_x, pop_y, s = 50, c='r')
+	plt.plot(dv,dh)
+	plt.plot([0, x],[y,y],'--')
+	plt.plot([x,x],[0,y],'--')
+	plt.xlabel("dv")
+	plt.ylabel("dh")
+	plt.title("dv = {}, dh = {}".format(x,y))
+	plt.savefig("images/{}.png".format(itr))
+	#plt.title(find_bestc("fronts2/"+front,15,15))
 
 
 if __name__ == "__main__":
-	N = 25
-	N_elite = 6
+	N = 10
+	N_elite = 10
 	max_iter = 150
 	itr = 0
 	eps = 1e-6
@@ -118,6 +146,7 @@ if __name__ == "__main__":
 	proba_big_mut = 0.1
 
 	os.system("rm logs.txt")
+	os.system("rm images/*")
 	
 	pop = init_pop(N)
 	elite, best = selection(pop, N_elite)
@@ -131,6 +160,7 @@ if __name__ == "__main__":
 		print("Mean of Elite population : {}\n".format(mean))
 		with open("logs.txt", 'a') as f:
 			f.write("{} {} {} {} {}\n".format(best[0], best[1][0], best[1][1], best[1][2], best[1][3]))
+		make_plot(pop, "pareto_front_0.1_5_.txt", itr+1)
 		pop = crossover_mutation(elite,pop, N, proba_mut, proba_big_mut)
 		elite, best = selection(pop, N_elite)
 		itr += 1
