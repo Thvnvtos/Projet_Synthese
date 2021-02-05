@@ -1,0 +1,5 @@
+# Projet_Synthese
+
+
+Avec la croissance du trafic aérien, il devient nécessaire de diminuer la charge de travail des contrôleurs aériens en les aidant dans leur tâche de séparation des avions.En effet L'équipe OPTIM de l'ENAC a développé un algorithme évolutionnaire pour la résolution automatique de conflits aériens qui prend en compte diverses sources d'incertitudes, Afin de rendre cet outil accepté par le contrôleur, il est indispensable de pouvoir adapter son comportement de telle sorte qu’il soit le plus proche possible de celui des contrôleurs humains. 
+ L'objectif de notre projet est d'apprendre les paramètres d’incertitude à partir d’observations de situations de trafic déjà résolues. On développe un algorithme génétique pour l'apprentissage de ces paramètres, et une analyse qualitative qui motive les choix qu'on a fait. Notre méthode permet de trouver des paramètres d'incertitude de bonne qualité. La méthode pourra facilement être améliorée par une proposition qu'on fait ci-dessous, et par conséquent on peux envisager l'application de la méthode sur des données réelles de résolutions de trafic réalisées par des contrôleurs.
